@@ -1,0 +1,28 @@
+.index {
+    background-image: linear-gradient(#fefefe, #e2e2e2);
+    height: 100vh;
+    .container {
+        padding: 20rpx;
+    }
+    .status-bar {
+        display: flex;
+        flex-direction: column;
+    }
+    .tabs {
+        margin-top: 20px;
+        &-header {
+            &-item {
+                border-top-left-radius: 20rpx;
+                font-size: 24px;
+                padding: 10px 20px;
+                display: inline;
+                background-color: #010101;
+                color: white;
+            }
+        }
+        &-content {
+            border-radius: 20rpx;
+            background-color: white;
+        }
+    }
+}
