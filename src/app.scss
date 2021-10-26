@@ -1,4 +1,27 @@
-
 @import "./custom-theme.scss";
 
 @import "~taro-ui/dist/style/index.scss";
+
+.card {
+    @apply rounded shadow-sm bg-white;
+}
+
+.input {
+    @apply h-8 p-2 mt-2 bg-gray-100 rounded-lg placeholder-gray-300 px-4;
+}
+
+.button {
+    @apply text-white bg-black;
+}
+
+button {
+    margin: 0;
+}
+
+page {
+    background-color: #F6F7F9;
+}
+
+.t-gery {
+    @apply text-gray-500;
+}

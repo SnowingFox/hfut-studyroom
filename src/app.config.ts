@@ -1,11 +1,14 @@
 export default {
   pages: [
-    'pages/index/index'
+    'pages/index/index',
+    'pages/sitsSelect/sitsSelect',
+    'pages/user/user',
+    'pages/history/history'
   ],
   window: {
     backgroundTextStyle: 'light',
+    backgroundColor: '#F6F7F9',
     navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   },
   tabBar: {
@@ -20,10 +23,11 @@ export default {
         selectedIconPath: './static/home-fill.png'
       },
       {
-        pagePath: 'pages/index/index',
+        pagePath: 'pages/user/user',
         text: '我的',
         iconPath: './static/person.png',
         selectedIconPath: './static/person-fill.png'
       }]
-  }
+  },
+  debug: true
 }

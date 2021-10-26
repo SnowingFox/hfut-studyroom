@@ -4,7 +4,11 @@ module.exports = {
   presets: [
     ['taro', {
       framework: 'nerv',
-      ts: true
+      ts: true,
+      targets: {
+        ios: '12',
+        android: '8'
+      }
     }]
   ]
 }
