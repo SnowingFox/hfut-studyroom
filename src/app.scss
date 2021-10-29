@@ -3,15 +3,16 @@
 @import "~taro-ui/dist/style/index.scss";
 
 .card {
-    @apply rounded shadow-sm bg-white;
+    @apply rounded shadow bg-white;
 }
 
 .input {
-    @apply h-8 p-2 mt-2 bg-gray-100 rounded-lg placeholder-gray-300 px-4;
+    @apply h-8 p-2 mt-2 bg-gray-100 rounded-xl placeholder-gray-300 px-4 opacity-90;
 }
 
 .button {
-    @apply text-white bg-black;
+    @apply rounded-full px-4 py-2 text-sm text-white;
+    background-color: #359089;
 }
 
 button {
@@ -20,8 +21,4 @@ button {
 
 page {
     background-color: #F6F7F9;
-}
-
-.t-gery {
-    @apply text-gray-500;
 }

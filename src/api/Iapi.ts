@@ -1,16 +1,18 @@
 export interface LoginProps {
-  studentId: string;
-  password: string;
+  studentId: string,
+  password: string,
 }
 
 export interface IStudentInfo {
-    buildId: Number;
-    id: Number;
-    major: String;
-    name: String;
-    sex: String;
-    state: Number;
-    studentId: Number;
+  buildId: Number,
+  id: Number,
+  major: String,
+  name: String,
+  sex: String,
+  state: Number,
+  studentId: Number,
+  appointmentNumber: Number,
+  homeId: Number
 }
 
 export interface IRecentStatus {
@@ -22,6 +24,14 @@ export interface IRecentStatus {
   num: Number,
   row: Number,
   seatId: Number,
-  startTime:String,
-  state: 0|1
+  startTime: String,
+  state: 0 | 1 | 2
+}
+
+export interface ITime {
+  id: Number,
+  startTime: string,
+  endTime: Number,
+  isToday: boolean,
+  available: boolean
 }

@@ -1,12 +1,12 @@
 import { RequestTask } from "@tarojs/taro"
 import { get } from "./http"
-import { LoginProps, IRecentStatus, IStudentInfo } from "./Iapi"
+import { LoginProps, IRecentStatus, IStudentInfo, ITime } from "./Iapi"
 
 
 interface BaseResp<T> {
     code: Number,
     msg: string,
-    data: T
+    data?: T
 }
 
 export function login(loginProps: LoginProps): RequestTask<BaseResp<String>>{
@@ -16,49 +16,26 @@ export function login(loginProps: LoginProps): RequestTask<BaseResp<String>>{
     })
 }
 
-export function getSeatsList() {
-    return {
-        "code": 0,
-        "data": {
-            "buildNum": 0,
-            "data": [
-                {
-                    "cols": 0,
-                    "data": [
-                        {
-                            "col": 0,
-                            "num": 0,
-                            "row": 0,
-                            "seatId": 0,
-                            "state": 0
-                        }
-                    ],
-                    "floorNum": 0,
-                    "rows": 0
-                }
-            ],
-            "endTime": {
-                "hour": 0,
-                "minute": 0,
-                "nano": 0,
-                "second": 0
-            },
-            "isToday": true,
-            "startTime": {
-                "hour": 0,
-                "minute": 0,
-                "nano": 0,
-                "second": 0
-            },
-            "timeId": 0
-        },
-        "msg": ""
+export function getSeatsList(timeId, isToday) {
+    let data = {
+        timeId: timeId,
+        isToday: isToday
     }
+    return get({
+        url: '/student/appointment/info',
+        data: data
+    })
 }
 
-export function getAssignmentStatus(): RequestTask<BaseResp<IRecentStatus>> {
+export function getAssignmentStatus(): RequestTask<BaseResp<IRecentStatus[]>> {
     return get({
         url: '/student/recent'
+    })
+}
+
+export function getCurrAssignmentStatus() {
+    return get({
+        url: '/student/current'
     })
 }
 
@@ -90,4 +67,34 @@ export function getHistoryOfAssignment() {
             ]
         }
     }
+}
+
+export function pause() {
+    return get({
+        url: "/student/appointment/pause"
+    })
+}
+
+export function back() {
+    return get({
+        url: "/student/appointment/back"
+    })
+}
+
+export function appointment(seatId, timeId, isToday) {
+    const data = {
+        seatId: seatId,
+        timeId: timeId,
+        isToday: isToday
+    }
+    return get({
+        url: "/student/appointment/",
+        data: data
+    })
+}
+
+export function getTimeList(): RequestTask<BaseResp<ITime[]>> {
+    return get({
+        url: "/student/appointment/available"
+    })
 }

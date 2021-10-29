@@ -13,9 +13,11 @@ export default function User() {
         name: undefined,
         sex: undefined,
         state: undefined,
-        studentId: undefined
+        studentId: undefined,
+        appointmentNumber: undefined,
+        homeId: undefined
     }
-    const [userData, setUserData] = useState<IStudentInfo>(initalStudentInfo);
+    const [userData, setUserData]: [IStudentInfo, Function] = useState<IStudentInfo>(initalStudentInfo);
     useEffect(() => {
         let info = Taro.getStorageSync("studentInfo")
         if (!info) {
@@ -45,21 +47,21 @@ export default function User() {
                         <Text className='block'>{userData.buildId}</Text>
                     </View><View className='px-4 py-2'>
                         <Text>寝室号</Text>
-                        <Text className='block'></Text>
+                        <Text className='block'>{userData.homeId}</Text>
                     </View><View className='px-4 py-2'>
                         <Text>预约次数</Text>
-                        <Text className='block'></Text>
+                        <Text className='block'>{userData.appointmentNumber}</Text>
                     </View><View className='px-4 py-2'>
                         <Text>性别</Text>
                         <Text className='block'>{userData.sex}</Text>
                     </View>
                 </View>
                 <View className='card flex p-4 mt-8'>
-                    <AtList className='w-full'>
+                    <AtList className='w-full' hasBorder={false}>
                         <AtListItem title='选座记录' arrow='right' onClick={() => Taro.navigateTo({ url: "/pages/history/history" })} />
                         <AtListItem title='使用反馈' arrow='right' onClick={this.handleClick} />
                         <AtListItem title='使用帮助' arrow='right' onClick={this.handleClick} />
-                        <AtListItem title='关于我们' arrow='right' onClick={this.handleClick} />
+                        <AtListItem title='关于我们' arrow='right' onClick={this.handleClick} hasBorder={false} />
                     </AtList>
                 </View>
             </View>

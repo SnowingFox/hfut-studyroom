@@ -1,9 +1,10 @@
 export default {
   pages: [
     'pages/index/index',
-    'pages/sitsSelect/sitsSelect',
+    'pages/seatselect/seatselect',
     'pages/user/user',
-    'pages/history/history'
+    'pages/history/history',
+    'pages/login/login',
   ],
   window: {
     backgroundTextStyle: 'light',
