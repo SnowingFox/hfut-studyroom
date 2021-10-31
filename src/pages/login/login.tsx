@@ -3,6 +3,7 @@ import Taro from "@tarojs/taro";
 import { View, Text, Input, Button, Form } from "@tarojs/components";
 import { login } from "../../api/api";
 import { LoginProps } from "../../api/Iapi";
+import { BASE_URL } from "../../api/http";
 
 export default function Login() {
     const [token, setToken] = useState()
@@ -12,13 +13,15 @@ export default function Login() {
             key: "token",
             data: token
         }).then(() => {
-            Taro.switchTab({
-                url: "/page/index/index"
+            Taro.reLaunch({
+                url: "/pages/index/index"
             })
         })
     }, [token])
     const handleLogin = (e) => {
-        Taro.showLoading()
+        Taro.showLoading({
+            title: "登录中"
+        })
         login(e.detail.value as LoginProps)
             .then((res) => {
                 Taro.hideLoading()
@@ -35,7 +38,7 @@ export default function Login() {
             })
     }
     return (
-        <View className='container bg-cover' style={{backgroundImage: "url('../../static/login_bg.png')"}}>
+        <View className='container bg-cover' style={{backgroundImage: `url(${BASE_URL}/res/study_room/c92fad14-af44-4d11-91b8-f7dcf3fc8b0b.png)`}}>
             <View className='px-12 flex flex-col h-screen'>
                 <View className='flex flex-col justify-center h-full'>
                     <View className='flex flex-col'>
@@ -57,7 +60,7 @@ export default function Login() {
                     </Form>
                 </View>
 
-                <Text className='text-center text-sm font-medium mb-8' style={{color: "#385FB0"}}>遇到问题</Text>
+                <Text className='text-center text-sm font-medium mb-8' style={{color: "#385FB0"}} onClick={() => Taro.navigateTo({url: "/pages/user/help/help"})}>遇到问题</Text>
             </View>
         </View>
     )

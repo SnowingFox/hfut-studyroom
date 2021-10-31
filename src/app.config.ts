@@ -3,7 +3,10 @@ export default {
     'pages/index/index',
     'pages/seatselect/seatselect',
     'pages/user/user',
-    'pages/history/history',
+    'pages/user/history/history',
+    'pages/user/help/help',
+    'pages/user/feedback/feedback',
+    'pages/user/about/about',
     'pages/login/login',
   ],
   window: {

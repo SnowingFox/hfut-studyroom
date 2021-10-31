@@ -29,9 +29,11 @@ export interface IRecentStatus {
 }
 
 export interface ITime {
-  id: Number,
-  startTime: string,
-  endTime: Number,
-  isToday: boolean,
-  available: boolean
+  date: string,
+  times: {
+    id: Number,
+    startTime: string,
+    endTime: Number,
+    available: boolean
+  }
 }

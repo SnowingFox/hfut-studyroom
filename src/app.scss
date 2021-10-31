@@ -7,7 +7,7 @@
 }
 
 .input {
-    @apply h-8 p-2 mt-2 bg-gray-100 rounded-xl placeholder-gray-300 px-4 opacity-90;
+    @apply h-8 p-2 mt-2 bg-white rounded-xl shadow placeholder-gray-300 px-4 opacity-90;
 }
 
 .button {
@@ -21,4 +21,8 @@ button {
 
 page {
     background-color: #F6F7F9;
+}
+
+.info-item {
+    @apply px-4 py-2 flex-grow;
 }

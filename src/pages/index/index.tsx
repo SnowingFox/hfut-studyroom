@@ -1,12 +1,20 @@
-import Nerv from 'nervjs'
-import { View, Text, Image} from '@tarojs/components'
+import Nerv, { useState, useEffect } from 'nervjs'
+import { View, Text, Image } from '@tarojs/components'
 import Nav from '../../components/nav'
 import { AssignmentStatus } from './components/assignment_status'
 import { Assignment } from './components/assignment'
+import { Footer } from '../../components/footer'
 import logo from '../../static/logo.png'
-import newxlogo from '../../static/newx-logo.png'
+import { getBanners } from '../../api/api'
+import { BASE_URL } from '../../api/http'
 
 export default function Index() {
+  const [banner, setBanner] = useState()
+  useEffect(() => {
+    getBanners().then((res) => {
+      setBanner(res.data.data.picture)
+    })
+  }, [])
   return (
     <View className='container'>
       <View className='px-4'>
@@ -17,19 +25,22 @@ export default function Index() {
           </View>
         </Nav>
         <View className='rounded shadow-sm'>
-          <Image
+          {banner ? <Image
+            style='width: 100%;height: 250rpx;'
+            src={BASE_URL + '/' +banner}
+            mode='aspectFill'
+            className='card mt-2'
+          /> : <></>}
+          {/* <Image
             style='width: 100%;height: 250rpx;'
             src=''
             mode='aspectFit'
             className='card mt-2'
-          />
+          /> */}
         </View>
         <AssignmentStatus />
         <Assignment />
-        <View className='flex justify-center items-center'>
-          <Text className='text-gray-300'>Powered by </Text>
-          <Image className='h-16 w-24' src={newxlogo} mode='aspectFit' />
-        </View>
+        <Footer />
       </View>
     </View>
   )

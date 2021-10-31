@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro"
 
-const BASE_URL: string = 'https://wechat.newxstudio.com'
+export const BASE_URL: string = 'https://wechat.newxstudio.com'
 
 const AuthInterceptor = (chain) => {
 
@@ -8,6 +8,7 @@ const AuthInterceptor = (chain) => {
     return chain.proceed(requestParams).then(res => {
       if (res.statusCode === 401) {
         Taro.setStorageSync("token", "")
+        Taro.setStorageSync("studentInfo", "")
         Taro.reLaunch({
               url: '/pages/login/login'
         })
@@ -32,7 +33,6 @@ function getOption(options, method) {
         data: options.data,
         method: method,
         header: {
-            'content-type': options.contentType,
             'Authorization': `Bearer ${Taro.getStorageSync('token')}`
         }
     }
