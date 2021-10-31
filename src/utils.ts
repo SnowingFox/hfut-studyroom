@@ -1,7 +1,6 @@
-export function getFormatNowDate() {
-    let date = new Date()
-    let month: string | number = date.getMonth();
-    let day: string | number = date.getDay();
+export function fmtDate(date: Date) {
+    let month: string | number = date.getMonth() + 1;
+    let day: string | number = date.getDate();
     if (month < 10) {
         month = '0' + String(month)
     }

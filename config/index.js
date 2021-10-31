@@ -9,7 +9,9 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  plugins: [
+    "taro-plugin-tailwind"
+  ],
   defineConstants: {
   },
   copy: {
@@ -30,7 +32,7 @@ const config = {
       url: {
         enable: true,
         config: {
-          limit: 1024 // 设定转换尺寸上限
+          limit: 102400 // 设定转换尺寸上限
         }
       },
       cssModules: {

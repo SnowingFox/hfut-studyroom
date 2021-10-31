@@ -1,5 +1,6 @@
 import { Component } from 'nervjs'
 import Taro from '@tarojs/taro'
+import 'windi.css';
 import { setGlobalData } from './global'
 import './app.scss'
 
