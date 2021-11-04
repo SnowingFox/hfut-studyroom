@@ -19,15 +19,12 @@ export function SeatList() {
         getSeatsList(timeId, appointmentDate).then((res) => {
             if (res.data.code === 0) {
                 let data = res.data.data.data;
-                data.map((d) => {
-                    d.data = data.map((item) => {
-                        let cols = [];
-                        for (let i = 1; i <= item.cols; i++) {
-                            let col = item.data.filter((s) => s.col === i)
-                            cols.push(col)
-                        }
-                        return cols
-                    })
+                data.forEach((d) => {
+                    let cols = []
+                    for (let i = 1; i <= d.cols; i++) {
+                        cols.push(d.data.filter((seat) => seat.col === i))
+                    }
+                    d.data = cols;
                 })
                 setseatsInfo(data)
                 // setseatsInfo(res.data.data)
@@ -78,17 +75,17 @@ export function SeatList() {
     return (
         seatsInfo !== undefined ?
             <View className='p-2'>
-                {seatsInfo.map((seats) => <View className='container flex flex-col' key={seats.floorNum}>
+                {seatsInfo.map((layer) => <View className='container flex flex-col mt-4' key={layer.floorNum}>
                     <View>
-                        <Text className='text-lg my-2'>第{seats.floorNum}层自习室</Text>
+                        <Text className='text-lg my-2'>第{layer.floorNum}层自习室</Text>
                     </View>
                     <View className='flex flex-wrap rounded shadow-lg p-4'>
-                        {seats.data.map((cols) => cols.map((col) => <View className='flex flex-col' style={{ width: `${100 / cols.length}%` }} key={col[0].seatId}>
+                        {layer.data.map((col) => <View className='flex flex-col' style={{ width: `${100 / layer.data.length}%` }} key={col[0].seatId}>
                             {col.map((seat) => <View className='flex flex-col justify-center items-center mx-5 my-2' key={seat.seatId} onClick={() => handleSelectSeat(seat)}>
                                 {selectedSeat === seat.seatId ? <View className='h-6 w-6 rounded-t' style={{ backgroundColor: '#000000' }}></View> : <View className='h-6 w-6 rounded-t' style={{ backgroundColor: seatColors[seat.state] }}></View>}
                                 <Text className='text-xs text-gray-400 mt-1'>{seat.num}</Text>
                             </View>)}
-                        </View>))}
+                        </View>)}
                     </View>
                 </View>)}
                 <View className='my-4 px-4'>

@@ -16,7 +16,7 @@ export interface IStudentInfo {
 }
 
 export interface IRecentStatus {
-  appointmentId: Number,
+  appointmentId: number,
   buildId: Number,
   col: Number,
   endTime: String,

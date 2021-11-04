@@ -27,9 +27,9 @@ export function getSeatsList(timeId, appointmentDate) {
     })
 }
 
-export function getCurrAssignmentStatus(): RequestTask<BaseResp<IRecentStatus[]>> {
+export function getUnfinishAssignmentStatus(): RequestTask<BaseResp<IRecentStatus[]>> {
     return get({
-        url: '/student/recent'
+        url: '/student/unfinished'
     })
 }
 
@@ -109,5 +109,11 @@ export function help() {
 export function getAbout() {
     return get({
         url: "/about"
+    })
+}
+
+export function getAppName() {
+    return get({
+        url: "/student/application/name"
     })
 }

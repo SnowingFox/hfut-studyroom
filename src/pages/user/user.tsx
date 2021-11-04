@@ -1,6 +1,6 @@
 import Nerv, { useState, useEffect } from 'nervjs'
 import Taro from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import { AtAvatar, AtList, AtListItem } from 'taro-ui'
 import { getStudentInfo } from '../../api/api'
 import { IStudentInfo } from '../../api/Iapi'
@@ -8,7 +8,7 @@ import { Footer } from '../../components/footer'
 
 const funcList = [
     {
-        title: '选座记录',
+        title: '使用记录',
         url: '/pages/user/history/history'
     },
     {
@@ -51,6 +51,26 @@ export default function User() {
         })
         // } 
     }, [])
+
+    const handleLogout = () => {
+        Taro.showModal({
+            title: '提示',
+            content: '是否要退出登录',
+            success: function (res) {
+                if (res.confirm) {
+                    Taro.setStorage({
+                        key: "token",
+                        data: ""
+                    }).then(() => Taro.reLaunch({
+                        url: '/pages/login/login'
+                    }))
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+    }
+
     return (
         <View className='container'>
             <View className='px-4 mt-16'>
@@ -82,6 +102,10 @@ export default function User() {
                     <AtList className='w-full' hasBorder={false}>
                         {funcList.map((item) => <AtListItem key={item.url} title={item.title} arrow='right' onClick={() => Taro.navigateTo({ url: item.url })} />)}
                     </AtList>
+                </View>
+                <View className='text-center mt-4'>
+                    <Text className='text-red-600 font-bold text-lg' onClick={handleLogout}>退出登录</Text>
+
                 </View>
                 <Footer />
             </View>
