@@ -5,14 +5,18 @@ import { AssignmentStatus } from './components/assignment_status'
 import { Assignment } from './components/assignment'
 import { Footer } from '../../components/footer'
 import logo from '../../static/logo.png'
-import { getBanners } from '../../api/api'
+import { getAppName, getBanners } from '../../api/api'
 import { BASE_URL } from '../../api/http'
 
 export default function Index() {
   const [banner, setBanner] = useState()
+  const [title, setTitle] = useState("")
   useEffect(() => {
     getBanners().then((res) => {
       setBanner(res.data.data.picture)
+    })
+    getAppName().then((res) => {
+      setTitle(res.data.data)
     })
   }, [])
   return (
@@ -21,7 +25,7 @@ export default function Index() {
         <Nav>
           <View className='flex flex-col mt-3'>
             <Image className='h-7 w-40' src={logo} mode='aspectFill' />
-            <Text className='text-xl mt-2'>共享时光屋</Text>
+            <Text className='text-xl mt-2'>{title}</Text>
           </View>
         </Nav>
         <View className='rounded shadow-sm'>
