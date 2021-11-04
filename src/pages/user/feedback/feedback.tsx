@@ -32,6 +32,7 @@ export default function Feedback() {
             icon: 'none',
             duration: 2000
         })
+        Taro.navigateBack()
     }
 
     return (
