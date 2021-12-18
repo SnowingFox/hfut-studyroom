@@ -11,6 +11,8 @@ import { reportSeat, uploadReportFiles } from '../../../api/seat'
 import { useRouter } from '@tarojs/runtime'
 import STATUS from '../../../config/status'
 
+const UPLOAD_IMAGE_MAX_SIZE = 1024 * 1024 * 2
+
 export default function SeatReport() {
   const [reportMsg, setReportMsg] = useState('')
   const [files, setFiles] = useState([])
@@ -101,12 +103,12 @@ export default function SeatReport() {
         onChange={(callFiles) => {
           setFiles(
             callFiles.map((file) => {
-              if (file.file.size <= 1024 * 1024 * 5) {
+              if (file.file.size <= UPLOAD_IMAGE_MAX_SIZE) {
                 return file
               }
               Taro.atMessage({
                 type: 'error',
-                message: '图片最大只能为5MB'
+                message: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`
               })
             })
           )
