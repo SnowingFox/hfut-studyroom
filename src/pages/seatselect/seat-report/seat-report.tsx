@@ -1,86 +1,81 @@
-import Nerv from 'nervjs'
-import { View } from '@tarojs/components'
-import { AtTextarea } from 'taro-ui'
-import { AtImagePicker } from 'taro-ui'
-import { AtButton } from 'taro-ui'
-import { useEffect, useState } from 'react'
+import Nerv from "nervjs";
+import { View } from "@tarojs/components";
+import { useState } from "react";
+import { AtMessage, AtButton, AtImagePicker, AtTextarea } from "taro-ui";
+import { reportSeat, uploadReportFiles } from "../../../api/seat";
 // @ts-ignore
-import Taro from '@tarojs/taro'
-import { AtMessage } from 'taro-ui'
-import { reportSeat, uploadReportFiles } from '../../../api/seat'
-import { useRouter } from '@tarojs/runtime'
-import STATUS from '../../../config/status'
+import Taro, { useRouter } from "@tarojs/taro";
+import STATUS from "../../../config/status";
 
-const UPLOAD_IMAGE_MAX_SIZE = 1024 * 1024 * 2
+const UPLOAD_IMAGE_MAX_SIZE = 1024 * 1024 * 2;
 
 export default function SeatReport() {
-  const [reportMsg, setReportMsg] = useState('')
-  const [files, setFiles] = useState([])
-  const router = useRouter()
+  const [reportMsg, setReportMsg] = useState("");
+  const [files, setFiles] = useState([]);
+  const router = useRouter();
 
-  const reportId = Number(router.params.id)
+  const reportId = Number(router.params.id);
 
   function onSubmitReport(): void {
-    if (reportMsg.length === 0 || reportMsg === '') {
+    if (reportMsg.length === 0 || reportMsg === "") {
       Taro.atMessage({
-        type: 'error',
-        message: '举报内容不能为空！'
-      })
+        type: "error",
+        message: "举报内容不能为空！"
+      });
 
-      return
+      return;
     }
 
     if (!files.length) {
       Taro.atMessage({
-        type: 'error',
-        message: '至少上传一张图片！'
-      })
+        type: "error",
+        message: "至少上传一张图片！"
+      });
 
-      return
+      return;
     }
 
-    report()
+    report();
   }
 
   function report(): void {
-    uploadReportFiles(files).then((res) => {
-      const result = JSON.parse(res.data)
-      const src = result.data
+    uploadReportFiles(files).then(res => {
+      const result = JSON.parse(res.data);
+      const src = result.data;
       if (result.data.code === STATUS.error) {
         Taro.atMessage({
-          type: 'error',
-          message: '系统异常！'
-        })
-        return
+          type: "error",
+          message: "系统异常！"
+        });
+        return;
       }
 
-      reportSeat(reportId, reportMsg, src).then((reportRes) => {
+      reportSeat(reportId, reportMsg, src).then(reportRes => {
         if (reportRes.data.code === STATUS.system_error) {
           Taro.atMessage({
-            type: 'error',
-            message: '系统异常！'
-          })
-          return
+            type: "error",
+            message: "系统异常！"
+          });
+          return;
         }
 
         if (reportRes.data.code === STATUS.error) {
           Taro.atMessage({
-            type: 'error',
+            type: "error",
             message: reportRes.data.msg
-          })
-          return
+          });
+          return;
         }
 
         Taro.showModal({
-          title: '提示',
-          content: '举报成功！',
-          showCancel: false,
-          success(res) {
-            Taro.navigateBack()
-          }
-        })
-      })
-    })
+          title: "提示",
+          content: "举报成功！",
+          showCancel: false
+        }).then(() => {
+          Taro.navigateBack();
+        });
+      });
+    });
   }
 
   return (
@@ -89,7 +84,7 @@ export default function SeatReport() {
       <AtTextarea
         focus={true}
         value={reportMsg}
-        onChange={(msg) => setReportMsg(msg)}
+        onChange={msg => setReportMsg(msg)}
         maxLength={500}
         placeholder="请描述你要举报的问题"
         height={100}
@@ -100,23 +95,23 @@ export default function SeatReport() {
       <AtImagePicker
         length={1}
         files={files}
-        onChange={(callFiles) => {
+        onChange={callFiles => {
           setFiles(
-            callFiles.map((file) => {
+            callFiles.map(file => {
               if (file.file.size <= UPLOAD_IMAGE_MAX_SIZE) {
-                return file
+                return file;
               } else {
                 Taro.showModal({
-                  title: '提示',
-                  content: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`,
-                  showCancel: false,
-                  success() {
-                    Taro.navigateBack()
-                  }
-                })
+                  title: "提示",
+                  content: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE /
+                    (1024 * 1024)}MB`,
+                  showCancel: false
+                }).then(r => {
+                  Taro.navigateBack();
+                });
               }
             })
-          )
+          );
         }}
       />
       <AtButton
@@ -127,5 +122,5 @@ export default function SeatReport() {
         举报
       </AtButton>
     </View>
-  )
+  );
 }
