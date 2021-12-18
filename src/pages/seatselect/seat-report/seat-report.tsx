@@ -103,7 +103,7 @@ export default function SeatReport() {
         onChange={(callFiles) => {
           setFiles(
             callFiles.map((file) => {
-              if (file.file.size <= 1) {
+              if (file.file.size <= UPLOAD_IMAGE_MAX_SIZE) {
                 return file
               }
               Taro.showModal({
