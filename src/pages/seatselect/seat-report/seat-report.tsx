@@ -95,7 +95,7 @@ export default function SeatReport() {
         height={100}
       />
       <View className="at-article__info" style="margin-top: 20px;">
-        请选择1张图片
+        请选择1张图片(图片最大只能为{UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB)
       </View>
       <AtImagePicker
         length={1}
@@ -103,12 +103,16 @@ export default function SeatReport() {
         onChange={(callFiles) => {
           setFiles(
             callFiles.map((file) => {
-              if (file.file.size <= UPLOAD_IMAGE_MAX_SIZE) {
+              if (file.file.size <= 1) {
                 return file
               }
-              Taro.atMessage({
-                type: 'error',
-                message: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`
+              Taro.showModal({
+                title: '提示',
+                content: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`,
+                showCancel: false,
+                success() {
+                  Taro.navigateBack()
+                }
               })
             })
           )
