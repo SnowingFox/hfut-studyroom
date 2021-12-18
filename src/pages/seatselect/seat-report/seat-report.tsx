@@ -105,15 +105,16 @@ export default function SeatReport() {
             callFiles.map((file) => {
               if (file.file.size <= UPLOAD_IMAGE_MAX_SIZE) {
                 return file
+              } else {
+                Taro.showModal({
+                  title: '提示',
+                  content: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`,
+                  showCancel: false,
+                  success() {
+                    Taro.navigateBack()
+                  }
+                })
               }
-              Taro.showModal({
-                title: '提示',
-                content: `图片最大只能为${UPLOAD_IMAGE_MAX_SIZE / (1024 * 1024)}MB`,
-                showCancel: false,
-                success() {
-                  Taro.navigateBack()
-                }
-              })
             })
           )
         }}
