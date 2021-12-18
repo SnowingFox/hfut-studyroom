@@ -1,3 +1,3 @@
 export default {
-    navigationBarTitleText: '订座'
-  }  
+  navigationBarTitleText: '订座'
+}

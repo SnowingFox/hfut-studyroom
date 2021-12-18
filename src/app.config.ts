@@ -2,12 +2,13 @@ export default {
   pages: [
     'pages/index/index',
     'pages/seatselect/seatselect',
+    'pages/seatselect/seat-report/seat-report',
     'pages/user/user',
     'pages/user/history/history',
     'pages/user/help/help',
     'pages/user/feedback/feedback',
     'pages/user/about/about',
-    'pages/login/login',
+    'pages/login/login'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -31,7 +32,8 @@ export default {
         text: '我的',
         iconPath: './static/person.png',
         selectedIconPath: './static/person-fill.png'
-      }]
+      }
+    ]
   },
   debug: true
 }
